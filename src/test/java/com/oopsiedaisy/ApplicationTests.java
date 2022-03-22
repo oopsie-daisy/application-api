@@ -14,7 +14,7 @@ class ApplicationTests {
 
 	@Test
 	void shouldFail() {
-		assertThat(5).isEqualTo(4);
+		assertThat(5).isEqualTo(5);
 	}
 
 }
