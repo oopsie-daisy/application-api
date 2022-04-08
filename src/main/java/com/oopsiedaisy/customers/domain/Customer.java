@@ -25,6 +25,6 @@ public class Customer {
 
     String iban;
 
-    String password
+    String password;
 
 }
