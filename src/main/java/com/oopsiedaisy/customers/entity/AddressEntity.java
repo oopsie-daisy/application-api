@@ -38,7 +38,7 @@ public class AddressEntity {
     @Column(nullable = false)
     String houseNumber;
 
-    @Column(nullable = false)
+    @Column
     String apartmentNumber;
 
     @Column(nullable = false)
