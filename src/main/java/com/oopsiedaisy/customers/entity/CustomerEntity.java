@@ -1,5 +1,6 @@
 package com.oopsiedaisy.customers.entity;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -50,4 +51,7 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     String iban;
+
+    @Column(nullable = false)
+    String password;
 }
