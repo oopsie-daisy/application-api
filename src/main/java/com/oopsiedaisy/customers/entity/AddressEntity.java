@@ -3,10 +3,7 @@ package com.oopsiedaisy.customers.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -27,7 +24,7 @@ public class AddressEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    UUID uuid;
 
     @Column(nullable = false)
     String country;
@@ -46,5 +43,12 @@ public class AddressEntity {
 
     @Column(nullable = false)
     String zipCode;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid != null) {
+            uuid = randomUUID();
+        }
+    }
 
 }

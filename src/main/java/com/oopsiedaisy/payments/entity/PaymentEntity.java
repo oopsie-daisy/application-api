@@ -4,10 +4,7 @@ import com.oopsiedaisy.payments.domain.PaymentProvider;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -29,7 +26,7 @@ public class PaymentEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    UUID uuid;
 
     @Column(nullable = false)
     PaymentProvider paymentProvider;
@@ -39,5 +36,12 @@ public class PaymentEntity {
 
     @Column(nullable = false)
     String senderIban;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid != null) {
+            uuid = randomUUID();
+        }
+    }
 
 }

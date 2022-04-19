@@ -4,10 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -28,7 +25,7 @@ public class CustomerEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    UUID uuid;
 
     @Column(nullable = false)
     String firstName;
@@ -54,4 +51,11 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     String password;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid != null) {
+            uuid = randomUUID();
+        }
+    }
 }
