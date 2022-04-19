@@ -1,10 +1,9 @@
 package com.oopsiedaisy;
 
+import com.oopsiedaisy.common.IntegrationTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ApplicationTests {
+class ApplicationTests extends IntegrationTest {
 
 	@Test
 	void contextLoads() {
