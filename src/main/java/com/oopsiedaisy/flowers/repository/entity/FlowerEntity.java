@@ -46,7 +46,7 @@ public class FlowerEntity {
 
     @PrePersist
     private void setUuid() {
-        if (this.uuid != null) {
+        if (this.uuid == null) {
             uuid = randomUUID();
         }
     }
