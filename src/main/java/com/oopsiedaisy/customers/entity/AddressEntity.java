@@ -16,6 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "address")
 @FieldDefaults(level = PRIVATE)
 public class AddressEntity {
 

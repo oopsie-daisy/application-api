@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "payment")
 @FieldDefaults(level = PRIVATE)
 public class PaymentEntity {
 
@@ -32,6 +34,7 @@ public class PaymentEntity {
     PaymentProvider paymentProvider;
 
     @Column(nullable = false)
+    @PositiveOrZero
     BigDecimal amountToPay;
 
     @Column(nullable = false)

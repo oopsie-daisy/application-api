@@ -1,5 +1,6 @@
 package com.oopsiedaisy.flowers.service;
 
+import com.oopsiedaisy.flowers.controller.util.FlowerFilter;
 import com.oopsiedaisy.flowers.domain.Flower;
 import com.oopsiedaisy.flowers.repository.FlowerRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ public class FlowerService {
 
     private final FlowerRepository repository;
 
-    public List<Flower> getAllFlowers() {
-        return repository.getAll();
+    public List<Flower> getAllFlowers(FlowerFilter filter) {
+        return repository.getAll(filter);
     }
 }

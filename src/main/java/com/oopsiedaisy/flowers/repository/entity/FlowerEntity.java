@@ -5,7 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class FlowerEntity {
     @Column(nullable = false)
     String baseColor;
 
-    @DecimalMin("0.01")
+    @PositiveOrZero
     @Column(nullable = false)
     BigDecimal price;
 
