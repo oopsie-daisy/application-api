@@ -30,10 +30,10 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity<AuthenticationResultResource> authenticateUser(
             @RequestBody @Valid AuthenticationRequestResource authenticationRequestResource) {
-        AuthenticationResult result = authenticationService.authenticate(mapper.toDomain(authenticationRequestResource));
+        AuthenticationResultResource result = mapper.toResource(authenticationService.authenticate(mapper.toDomain(authenticationRequestResource)));
         if (FAILED == result.getStatus()) {
-            return new ResponseEntity<>(mapper.toResource(result), UNAUTHORIZED);
+            return new ResponseEntity<>(result, UNAUTHORIZED);
         }
-        return ok(mapper.toResource(result));
+        return ok(result);
     }
 }
