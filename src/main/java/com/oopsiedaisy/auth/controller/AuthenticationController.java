@@ -2,7 +2,6 @@ package com.oopsiedaisy.auth.controller;
 
 import com.oopsiedaisy.auth.controller.resource.AuthenticationRequestResource;
 import com.oopsiedaisy.auth.controller.resource.AuthenticationResultResource;
-import com.oopsiedaisy.auth.domain.AuthenticationResult;
 import com.oopsiedaisy.auth.mapper.AuthenticationMapper;
 import com.oopsiedaisy.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
