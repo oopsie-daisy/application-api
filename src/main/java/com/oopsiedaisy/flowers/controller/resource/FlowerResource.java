@@ -1,4 +1,4 @@
-package com.oopsiedaisy.flowers.domain;
+package com.oopsiedaisy.flowers.controller.resource;
 
 import lombok.Builder;
 import lombok.Value;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class Flower {
+public class FlowerResource {
 
     UUID uuid;
 

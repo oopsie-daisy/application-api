@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/opd/db-test.mv.db
+/opd/db-test.trace.db

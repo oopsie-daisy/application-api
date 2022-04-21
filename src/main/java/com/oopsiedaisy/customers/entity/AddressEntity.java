@@ -2,11 +2,9 @@ package com.oopsiedaisy.customers.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -19,6 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "address")
 @FieldDefaults(level = PRIVATE)
 public class AddressEntity {
 
@@ -27,7 +26,8 @@ public class AddressEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    @Type(type="uuid-char")
+    UUID uuid;
 
     @Column(nullable = false)
     String country;
@@ -46,5 +46,12 @@ public class AddressEntity {
 
     @Column(nullable = false)
     String zipCode;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid == null) {
+            uuid = randomUUID();
+        }
+    }
 
 }
