@@ -3,11 +3,10 @@ package com.oopsiedaisy.payments.entity;
 import com.oopsiedaisy.payments.domain.PaymentProvider;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -21,6 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "payment")
 @FieldDefaults(level = PRIVATE)
 public class PaymentEntity {
 
@@ -29,15 +29,24 @@ public class PaymentEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    @Type(type="uuid-char")
+    UUID uuid;
 
     @Column(nullable = false)
     PaymentProvider paymentProvider;
 
     @Column(nullable = false)
+    @PositiveOrZero
     BigDecimal amountToPay;
 
     @Column(nullable = false)
     String senderIban;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid == null) {
+            uuid = randomUUID();
+        }
+    }
 
 }

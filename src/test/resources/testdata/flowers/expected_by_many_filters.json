@@ -1,0 +1,16 @@
+[
+  {
+    "uuid": "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454",
+    "title": "Bunch of Roses",
+    "bouquet": true,
+    "baseColor": "red",
+    "price": 12.98
+  },
+  {
+    "uuid": "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3455",
+    "title": "Tulips",
+    "bouquet": true,
+    "baseColor": "yellow",
+    "price": 99.95
+  }
+]

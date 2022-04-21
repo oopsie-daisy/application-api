@@ -3,11 +3,9 @@ package com.oopsiedaisy.customers.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -20,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "customer")
 @FieldDefaults(level = PRIVATE)
 public class CustomerEntity {
 
@@ -28,7 +27,8 @@ public class CustomerEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    @Type(type="uuid-char")
+    UUID uuid;
 
     @Column(nullable = false)
     String firstName;
@@ -54,4 +54,11 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     String password;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid == null) {
+            uuid = randomUUID();
+        }
+    }
 }

@@ -1,12 +1,11 @@
-package com.oopsiedaisy.flowers.entity;
+package com.oopsiedaisy.flowers.repository.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -20,6 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Table(name = "flower")
 @FieldDefaults(level = PRIVATE)
 public class FlowerEntity {
 
@@ -28,18 +28,27 @@ public class FlowerEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
-    UUID uuid = randomUUID();
+    @Type(type="uuid-char")
+    UUID uuid;
 
     @Column(nullable = false)
     String title;
 
     @Column(nullable = false)
-    boolean isBouquet;
+    boolean bouquet;
 
     @Column(nullable = false)
     String baseColor;
 
+    @PositiveOrZero
     @Column(nullable = false)
     BigDecimal price;
+
+    @PrePersist
+    private void setUuid() {
+        if (this.uuid == null) {
+            uuid = randomUUID();
+        }
+    }
 
 }
