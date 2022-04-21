@@ -8,7 +8,7 @@ import java.util.UUID;
 @Value
 public class CustomerCreationResponse {
 
-    UUID uuid;
+    UUID customerUuid;
 
     String errorMessage;
 
