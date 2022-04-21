@@ -26,7 +26,6 @@ class CustomerCreationIntTest extends IntegrationTest {
     private CustomerRepository repository;
 
     @Test
-    @Sql({"/testdata/customers/create-user.sql"})
     void shouldNotCreateCustomerWhenPayloadIsBad() throws Exception {
         mockMvc.perform(post(SIGN_UP_URL)
                         .accept(APPLICATION_JSON)
