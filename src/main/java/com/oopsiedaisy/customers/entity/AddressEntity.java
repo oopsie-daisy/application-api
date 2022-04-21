@@ -2,6 +2,7 @@ package com.oopsiedaisy.customers.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class AddressEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
+    @Type(type="uuid-char")
     UUID uuid;
 
     @Column(nullable = false)

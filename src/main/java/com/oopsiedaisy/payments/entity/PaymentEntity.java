@@ -3,6 +3,7 @@ package com.oopsiedaisy.payments.entity;
 import com.oopsiedaisy.payments.domain.PaymentProvider;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
@@ -28,6 +29,7 @@ public class PaymentEntity {
     Integer id;
 
     @Column(nullable = false, updatable = false)
+    @Type(type="uuid-char")
     UUID uuid;
 
     @Column(nullable = false)
