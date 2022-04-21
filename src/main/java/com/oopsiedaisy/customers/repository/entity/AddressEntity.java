@@ -47,6 +47,11 @@ public class AddressEntity {
     @Column(nullable = false)
     String zipCode;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    CustomerEntity customer;
+
     @PrePersist
     private void setUuid() {
         if (this.uuid == null) {

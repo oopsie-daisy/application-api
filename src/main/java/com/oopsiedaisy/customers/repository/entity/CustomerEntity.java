@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -38,18 +39,14 @@ public class CustomerEntity {
     @Column(nullable = false)
     String fullName;
 
-    //TODO: fix with OPD-11
-//    @Column(nullable = false)
-//    Address address;
+    @OneToMany(mappedBy = "customer")
+    List<AddressEntity> addresses;
 
     @Column(nullable = false)
     String phoneNumber;
 
     @Column(nullable = false)
     String email;
-
-    @Column(nullable = false)
-    String iban;
 
     @Column(nullable = false)
     String password;
