@@ -1,6 +1,5 @@
-package com.oopsiedaisy.customers.entity;
+package com.oopsiedaisy.customers.repository.entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
@@ -18,9 +17,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
-@Table(name = "customer")
+@Table(name = "address")
 @FieldDefaults(level = PRIVATE)
-public class CustomerEntity {
+public class AddressEntity {
 
     @Id
     @GeneratedValue(strategy = AUTO)
@@ -31,29 +30,22 @@ public class CustomerEntity {
     UUID uuid;
 
     @Column(nullable = false)
-    String firstName;
+    String country;
 
     @Column(nullable = false)
-    String lastName;
+    String city;
 
     @Column(nullable = false)
-    String fullName;
-
-    //TODO: fix with OPD-11
-//    @Column(nullable = false)
-//    Address address;
+    String streetName;
 
     @Column(nullable = false)
-    String phoneNumber;
+    String houseNumber;
+
+    @Column
+    String apartmentNumber;
 
     @Column(nullable = false)
-    String email;
-
-    @Column(nullable = false)
-    String iban;
-
-    @Column(nullable = false)
-    String password;
+    String zipCode;
 
     @PrePersist
     private void setUuid() {
@@ -61,4 +53,5 @@ public class CustomerEntity {
             uuid = randomUUID();
         }
     }
+
 }
