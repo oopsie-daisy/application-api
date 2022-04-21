@@ -14,7 +14,7 @@ class JwtPropertiesTest extends IntegrationTest {
     @Test
     void shouldGetSecretFromJwtProperties() {
         String jwtSecret = properties.getSecret();
-        assertThat(jwtSecret).isEqualTo("secret");
+        assertThat(jwtSecret).isEqualTo("lfbNiwulbvB4PLIdYOR5v9KaScZodLQ2hfd9wgRwcEeIfdCQx1vmWHRP77J30IOR");
     }
 
     @Test
