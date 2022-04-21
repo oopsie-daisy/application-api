@@ -14,4 +14,6 @@ import static lombok.AccessLevel.PRIVATE;
 public class JwtProperties {
 
     String secret;
+
+    long expiration;
 }
