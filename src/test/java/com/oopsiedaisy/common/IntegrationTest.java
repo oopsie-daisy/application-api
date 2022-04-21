@@ -1,5 +1,7 @@
 package com.oopsiedaisy.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -29,6 +31,9 @@ public abstract class IntegrationTest {
     @Autowired
     protected MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper mapper;
+
     @BeforeEach
     void setNotWebContext() {
         RequestContextHolder.resetRequestAttributes();
@@ -40,5 +45,10 @@ public abstract class IntegrationTest {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    @SneakyThrows
+    protected String toJson(Object object) {
+        return mapper.writeValueAsString(object);
     }
 }

@@ -1,4 +1,4 @@
-package com.oopsiedaisy.flowers.controller;
+package com.oopsiedaisy.flowers;
 
 import com.oopsiedaisy.common.IntegrationTest;
 import org.junit.jupiter.api.Test;

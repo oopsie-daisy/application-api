@@ -1,4 +1,4 @@
-package com.oopsiedaisy.customers.entity;
+package com.oopsiedaisy.customers.repository.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -17,9 +17,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
-@Table(name = "address")
+@Table(name = "customer")
 @FieldDefaults(level = PRIVATE)
-public class AddressEntity {
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = AUTO)
@@ -30,22 +30,29 @@ public class AddressEntity {
     UUID uuid;
 
     @Column(nullable = false)
-    String country;
+    String firstName;
 
     @Column(nullable = false)
-    String city;
+    String lastName;
 
     @Column(nullable = false)
-    String streetName;
+    String fullName;
+
+    //TODO: fix with OPD-11
+//    @Column(nullable = false)
+//    Address address;
 
     @Column(nullable = false)
-    String houseNumber;
-
-    @Column
-    String apartmentNumber;
+    String phoneNumber;
 
     @Column(nullable = false)
-    String zipCode;
+    String email;
+
+    @Column(nullable = false)
+    String iban;
+
+    @Column(nullable = false)
+    String password;
 
     @PrePersist
     private void setUuid() {
@@ -53,5 +60,4 @@ public class AddressEntity {
             uuid = randomUUID();
         }
     }
-
 }
