@@ -51,4 +51,9 @@ public abstract class IntegrationTest {
     protected String toJson(Object object) {
         return mapper.writeValueAsString(object);
     }
+
+    @SneakyThrows
+    protected <T> T fromJson(String json, Class<T> clazz) {
+        return mapper.readValue(json, mapper.getTypeFactory().constructType(clazz));
+    }
 }

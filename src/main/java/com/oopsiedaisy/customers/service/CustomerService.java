@@ -21,4 +21,8 @@ public class CustomerService {
     private boolean customerExistsWithEmail(String email) {
         return repository.getByEmail(email) != null;
     }
+
+    public Customer getCustomer(String uuid) {
+        return repository.getByUuid(uuid);
+    }
 }
