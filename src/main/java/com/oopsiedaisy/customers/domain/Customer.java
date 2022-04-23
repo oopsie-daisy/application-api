@@ -3,6 +3,7 @@ package com.oopsiedaisy.customers.domain;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.List;
 import java.util.UUID;
 
 @Value
@@ -17,13 +18,11 @@ public class Customer {
 
     String fullName;
 
-    Address address;
+    List<Address> addresses;
 
     String phoneNumber;
 
     String email;
-
-    String iban;
 
     String password;
 
