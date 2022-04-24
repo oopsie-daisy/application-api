@@ -7,6 +7,8 @@ import com.oopsiedaisy.customers.repository.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import static java.util.UUID.fromString;
+
 @Repository
 @RequiredArgsConstructor
 public class CustomerRepository {
@@ -36,5 +38,9 @@ public class CustomerRepository {
         return repository.findByEmail(email)
                 .map(mapper::toDomain)
                 .orElse(null);
+    }
+
+    public Customer getByUuid(String uuid) {
+        return mapper.toDomain(repository.findByUuid(fromString(uuid)));
     }
 }

@@ -41,8 +41,8 @@ class CustomerCreationIntTest extends IntegrationTest {
                         .accept(APPLICATION_JSON)
                         .contentType(APPLICATION_JSON)
                         .content(toJson(buildCustomerCreationResource())))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorMessage", is("User with that email already exists")));
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.message", is("User with that email already exists")));
     }
 
     @Test
