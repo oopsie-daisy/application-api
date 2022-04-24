@@ -1,4 +1,4 @@
-package com.oopsiedaisy.config;
+package com.oopsiedaisy.config.exceptions;
 
 import lombok.Value;
 

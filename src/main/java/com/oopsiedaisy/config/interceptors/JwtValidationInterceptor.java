@@ -1,5 +1,7 @@
-package com.oopsiedaisy.config;
+package com.oopsiedaisy.config.interceptors;
 
+import com.oopsiedaisy.config.annotations.JwtValidated;
+import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
 import com.oopsiedaisy.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -2,13 +2,13 @@ package com.oopsiedaisy.auth.service;
 
 import com.oopsiedaisy.auth.domain.AuthenticationRequest;
 import com.oopsiedaisy.auth.domain.AuthenticationResult;
+import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
 import com.oopsiedaisy.customers.domain.Customer;
 import com.oopsiedaisy.customers.repository.CustomerRepository;
 import com.oopsiedaisy.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.oopsiedaisy.auth.controller.resource.AuthenticationStatus.FAILED;
 import static com.oopsiedaisy.auth.controller.resource.AuthenticationStatus.OK;
 import static java.util.Objects.isNull;
 
@@ -25,10 +25,10 @@ public class AuthenticationService {
     public AuthenticationResult authenticate(AuthenticationRequest authenticationRequest) {
         Customer foundCustomer = customerRepository.getByEmail(authenticationRequest.getEmail());
         if (isNull(foundCustomer)) {
-            return buildFailedAuthResult(CUSTOMER_NOT_FOUND);
+            throw new NotAuthorizedException(CUSTOMER_NOT_FOUND);
         }
         if (isPasswordNotCorrect(authenticationRequest, foundCustomer)) {
-            return buildFailedAuthResult(BAD_CREDENTIALS);
+            throw new NotAuthorizedException(BAD_CREDENTIALS);
         }
         return buildSuccessfulAuthenticationResult(foundCustomer);
     }
@@ -40,9 +40,5 @@ public class AuthenticationService {
     private AuthenticationResult buildSuccessfulAuthenticationResult(Customer foundCustomer) {
         String jwt = jwtService.generateToken(foundCustomer.getUuid());
         return new AuthenticationResult(jwt, foundCustomer.getUuid(), OK, null);
-    }
-
-    private AuthenticationResult buildFailedAuthResult(String errorMessage) {
-        return new AuthenticationResult(null, null, FAILED, errorMessage);
     }
 }

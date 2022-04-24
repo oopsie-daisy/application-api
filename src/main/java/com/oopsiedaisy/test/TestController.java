@@ -1,7 +1,7 @@
 package com.oopsiedaisy.test;
 
 import com.oopsiedaisy.auth.controller.resource.CustomerResource;
-import com.oopsiedaisy.config.JwtValidated;
+import com.oopsiedaisy.config.annotations.JwtValidated;
 import com.oopsiedaisy.customers.mapper.CustomerMapper;
 import com.oopsiedaisy.customers.service.CustomerService;
 import lombok.RequiredArgsConstructor;

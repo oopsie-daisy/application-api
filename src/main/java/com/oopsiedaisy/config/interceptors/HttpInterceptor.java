@@ -1,4 +1,4 @@
-package com.oopsiedaisy.config;
+package com.oopsiedaisy.config.interceptors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

@@ -24,7 +24,7 @@ class AuthenticationControllerIntTest extends IntegrationTest {
     }
 
     @Test
-    void shouldAuthenticateUserWhenGoodCredentialsArePassedAndHaveJwt() throws Exception {
+    void shouldAuthenticateUserAndHaveJwtWhenGoodCredentialsArePassed() throws Exception {
         testUserAuthentication(buildAuthRequest("example@mail.com", "password"),
                 status().isOk(), jsonPath("$.jwt").value(not(nullValue())));
     }
@@ -32,7 +32,7 @@ class AuthenticationControllerIntTest extends IntegrationTest {
     @Test
     void shouldReturn401WhenUserDoesNotExist() throws Exception {
         testUserAuthentication(buildAuthRequest("random@mail.com", "password"),
-                status().isUnauthorized(), jsonPath("$.status", is("FAILED")));
+                status().isUnauthorized(), jsonPath("$.message", is("Customer with this email not found")));
     }
 
     @Test
@@ -47,7 +47,7 @@ class AuthenticationControllerIntTest extends IntegrationTest {
     @Test
     void shouldReturn401WhenPasswordIsIncorrect() throws Exception {
         testUserAuthentication(buildAuthRequest("example@mail.com", "password123"),
-                status().isUnauthorized(), jsonPath("$.errorMessage", is("Bad credentials")));
+                status().isUnauthorized(), jsonPath("$.message", is("Bad credentials")));
     }
 
     private void testUserAuthentication(AuthenticationRequestResource requestResource, ResultMatcher expectedStatus,
