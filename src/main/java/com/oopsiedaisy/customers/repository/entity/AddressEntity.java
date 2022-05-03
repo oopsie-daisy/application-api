@@ -47,6 +47,10 @@ public class AddressEntity {
     @Column(nullable = false)
     String zipCode;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION", columnDefinition = "integer default 0")
+    Integer version;
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "customer_id")
