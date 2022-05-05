@@ -44,6 +44,10 @@ public class FlowerEntity {
     @Column(nullable = false)
     BigDecimal price;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION", columnDefinition = "integer default 0")
+    Integer version;
+
     @PrePersist
     private void setUuid() {
         if (this.uuid == null) {
