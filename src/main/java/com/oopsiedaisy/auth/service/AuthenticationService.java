@@ -35,7 +35,6 @@ public class AuthenticationService {
     }
 
     private boolean isPasswordNotCorrect(AuthenticationRequest authenticationRequest, Customer foundCustomer) {
-        //return !authenticationRequest.getPassword().equals(foundCustomer.getPassword());
         return !BCrypt.checkpw(authenticationRequest.getPassword(), foundCustomer.getPassword());
     }
 
