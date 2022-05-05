@@ -7,6 +7,7 @@ import com.oopsiedaisy.customers.domain.Customer;
 import com.oopsiedaisy.customers.repository.CustomerRepository;
 import com.oopsiedaisy.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import static com.oopsiedaisy.auth.controller.resource.AuthenticationStatus.OK;
@@ -34,7 +35,8 @@ public class AuthenticationService {
     }
 
     private boolean isPasswordNotCorrect(AuthenticationRequest authenticationRequest, Customer foundCustomer) {
-        return !authenticationRequest.getPassword().equals(foundCustomer.getPassword());
+        //return !authenticationRequest.getPassword().equals(foundCustomer.getPassword());
+        return !BCrypt.checkpw(authenticationRequest.getPassword(), foundCustomer.getPassword());
     }
 
     private AuthenticationResult buildSuccessfulAuthenticationResult(Customer foundCustomer) {

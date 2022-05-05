@@ -4,6 +4,8 @@ import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
 import com.oopsiedaisy.customers.domain.Customer;
 import com.oopsiedaisy.customers.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +20,8 @@ public class CustomerService {
         if (customerExistsWithEmail(customerCreationResource.getEmail())) {
             throw new NotAuthorizedException(USER_EXISTS_ERROR);
         }
+        String hashedPassword = hashPassword(customerCreationResource.getPassword());
+        customerCreationResource.setPassword(hashedPassword);
         return repository.persist(customerCreationResource);
     }
 
@@ -27,5 +31,9 @@ public class CustomerService {
 
     public Customer getCustomer(String uuid) {
         return repository.getByUuid(uuid);
+    }
+
+    private static String hashPassword(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt(10));
     }
 }
