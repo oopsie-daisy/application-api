@@ -2,7 +2,6 @@ package com.oopsiedaisy.auth.service;
 
 import com.oopsiedaisy.auth.domain.AuthenticationRequest;
 import com.oopsiedaisy.auth.domain.AuthenticationResult;
-import com.oopsiedaisy.config.annotations.LogAudit;
 import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
 import com.oopsiedaisy.customers.domain.Customer;
 import com.oopsiedaisy.customers.repository.CustomerRepository;
@@ -24,7 +23,6 @@ public class AuthenticationService {
     private final CustomerRepository customerRepository;
     private final JwtService jwtService;
 
-    @LogAudit
     public AuthenticationResult authenticate(AuthenticationRequest authenticationRequest) {
         Customer foundCustomer = customerRepository.getByEmail(authenticationRequest.getEmail());
         if (isNull(foundCustomer)) {
