@@ -18,14 +18,7 @@ class JwtServiceTest extends IntegrationTest {
     void shouldGenerateValidJwt() {
         UUID userUuid = fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454");
         String jwt = service.generateToken(userUuid);
-        assertThat(service.validateToken(jwt, userUuid)).isTrue();
+        assertThat(service.validateToken(jwt)).isTrue();
         assertThat(service.getUserUuidFromJwt(jwt)).isEqualTo(userUuid.toString());
-    }
-
-    @Test
-    void shouldFailHwtValidationWhenUserIsDifferent() {
-        UUID userUuid = fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454");
-        String jwt = service.generateToken(userUuid);
-        assertThat(service.validateToken(jwt, fromString("f8c5dd3d-1fea-4d9c-a8b0-29f63c4c3458"))).isFalse();
     }
 }

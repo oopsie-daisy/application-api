@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.created;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/flowers")
@@ -27,7 +25,7 @@ public class FlowersController {
     }
 
     @JwtValidated
-    @PostMapping("/{uuid}")
+    @PostMapping
     public List<FlowerResource> addFlowers(@RequestBody List<FlowerResource> flowersToAdd) {
         return mapper.toResource(service.addFlowers(mapper.fromResourceToDomain(flowersToAdd)));
     }

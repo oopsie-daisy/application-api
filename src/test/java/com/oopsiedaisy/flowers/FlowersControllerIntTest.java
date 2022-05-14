@@ -46,7 +46,7 @@ class FlowersControllerIntTest extends IntegrationTest {
     void shouldAddFlowersWhenUserIsAuthenticated() throws Exception {
         AuthenticationResult result = authenticateUser();
 
-        mockMvc.perform(post("/flowers/" + result.getUserUuid())
+        mockMvc.perform(post("/flowers")
                     .accept(APPLICATION_JSON)
                     .header("x-application-context", result.getJwt())
                     .contentType(APPLICATION_JSON)
@@ -59,7 +59,7 @@ class FlowersControllerIntTest extends IntegrationTest {
     void shouldNotAddFlowersWhenJwtIsNotProvided() throws Exception {
         AuthenticationResult result = authenticateUser();
 
-        mockMvc.perform(post("/flowers/" + result.getUserUuid())
+        mockMvc.perform(post("/flowers")
                         .accept(APPLICATION_JSON)
                         .contentType(APPLICATION_JSON)
                         .content(readResourceAsString(addFlowersResource)))
