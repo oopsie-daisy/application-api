@@ -18,9 +18,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
-@Table(name = "customer")
+@Table(name = "administrator")
 @FieldDefaults(level = PRIVATE)
-public class CustomerEntity {
+public class AdministratorEntity {
 
     @Id
     @GeneratedValue(strategy = AUTO)
@@ -38,9 +38,6 @@ public class CustomerEntity {
 
     @Column(nullable = false)
     String fullName;
-
-    @OneToMany(mappedBy = "customer")
-    List<AddressEntity> addresses;
 
     @Column(nullable = false)
     String phoneNumber;

@@ -1,15 +1,16 @@
 package com.oopsiedaisy.flowers.controller;
 
+import com.oopsiedaisy.config.annotations.JwtValidated;
 import com.oopsiedaisy.flowers.controller.resource.FlowerResource;
 import com.oopsiedaisy.flowers.controller.util.FlowerFilter;
 import com.oopsiedaisy.flowers.mapper.FlowerMapper;
 import com.oopsiedaisy.flowers.service.FlowerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.created;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +24,11 @@ public class FlowersController {
     @GetMapping
     public List<FlowerResource> getAllFlowers(FlowerFilter filter) {
         return mapper.toResource(service.getAllFlowers(filter));
+    }
+
+    @JwtValidated
+    @PostMapping("/{uuid}")
+    public List<FlowerResource> addFlowers(@RequestBody List<FlowerResource> flowersToAdd) {
+        return mapper.toResource(service.addFlowers(mapper.fromResourceToDomain(flowersToAdd)));
     }
 }

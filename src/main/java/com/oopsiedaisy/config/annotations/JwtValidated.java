@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Use this annotation on http request method to check if user is authorised to requested resource.
- * Http url must have "uuid" path variable that indicates user uuid.
+ * Http url must have "uuid" path variable that indicates Administrator uuid.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

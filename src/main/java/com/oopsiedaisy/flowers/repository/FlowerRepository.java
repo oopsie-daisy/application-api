@@ -29,4 +29,8 @@ public class FlowerRepository {
         Specification<FlowerEntity> criteria = specification.searchByFilter(filter);
         return mapper.toDomain(repository.findAll(criteria, sort));
     }
+
+    public List<Flower> addAll(List<Flower> flowersToAdd) {
+        return mapper.toDomain(repository.saveAll(mapper.toEntity(flowersToAdd)));
+    }
 }

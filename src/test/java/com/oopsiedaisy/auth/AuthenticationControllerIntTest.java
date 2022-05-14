@@ -32,7 +32,7 @@ class AuthenticationControllerIntTest extends IntegrationTest {
     @Test
     void shouldReturn401WhenUserDoesNotExist() throws Exception {
         testUserAuthentication(buildAuthRequest("random@mail.com", "password"),
-                status().isUnauthorized(), jsonPath("$.message", is("Customer with this email not found")));
+                status().isUnauthorized(), jsonPath("$.message", is("Administrator with this email not found")));
     }
 
     @Test

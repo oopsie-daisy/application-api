@@ -18,4 +18,12 @@ public interface FlowerMapper {
     Flower toDomain(FlowerEntity flower);
 
     List<Flower> toDomain(List<FlowerEntity> flowers);
+
+    Flower fromResourceToDomain(FlowerResource flower);
+
+    List<Flower> fromResourceToDomain(List<FlowerResource> flowers);
+
+    List<FlowerEntity> toEntity(List<Flower> flowers);
+
+    FlowerEntity toEntity(Flower flower);
 }

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ import java.util.Map;
 import static java.util.Objects.isNull;
 import static java.util.UUID.fromString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.springframework.web.servlet.HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class JwtValidationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (handler instanceof HandlerMethod) {
-            JwtValidated isAnnotatedWithJwtValidated = getJwtValidatedAnnotation((HandlerMethod) handler);
-            if (isNull(isAnnotatedWithJwtValidated)) {
+            boolean isNotAnnotatedWithJwtValidated = isNull(getJwtValidatedAnnotation((HandlerMethod) handler));
+            if (isNotAnnotatedWithJwtValidated) {
                 return true;
             }
             validateJwtAccess(request);
@@ -56,7 +56,10 @@ public class JwtValidationInterceptor implements HandlerInterceptor {
         if (isBlank(jwt)) {
             throw new IllegalArgumentException("Jwt is not provided");
         }
-        Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        if (!pathVariables.containsKey("uuid")) {
+            throw new IllegalArgumentException("No uuid in path provided");
+        }
         String userUuid = pathVariables.get("uuid");
         boolean isJwtExpired = jwtService.isTokenExpired(jwt);
         if (isJwtExpired) {
