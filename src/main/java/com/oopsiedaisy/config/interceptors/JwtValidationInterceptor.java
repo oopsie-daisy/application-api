@@ -10,12 +10,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 import static java.util.Objects.isNull;
-import static java.util.UUID.fromString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.springframework.web.servlet.HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE;
 
 @Component
 @RequiredArgsConstructor
@@ -56,16 +53,11 @@ public class JwtValidationInterceptor implements HandlerInterceptor {
         if (isBlank(jwt)) {
             throw new IllegalArgumentException("Jwt is not provided");
         }
-        Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-        if (!pathVariables.containsKey("uuid")) {
-            throw new IllegalArgumentException("No uuid in path provided");
-        }
-        String userUuid = pathVariables.get("uuid");
         boolean isJwtExpired = jwtService.isTokenExpired(jwt);
         if (isJwtExpired) {
             throw new IllegalArgumentException("Jwt is expired");
         }
-        boolean isJwtValid =  jwtService.validateToken(jwt, fromString(userUuid));
+        boolean isJwtValid =  jwtService.validateToken(jwt);
         if (!isJwtValid) {
             throw new IllegalArgumentException("Jwt is not valid");
         }
