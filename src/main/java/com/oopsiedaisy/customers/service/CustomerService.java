@@ -1,5 +1,6 @@
 package com.oopsiedaisy.customers.service;
 
+import com.oopsiedaisy.config.annotations.LogAudit;
 import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
 import com.oopsiedaisy.customers.domain.Customer;
 import com.oopsiedaisy.customers.repository.CustomerRepository;
@@ -16,6 +17,7 @@ public class CustomerService {
 
     private final CustomerRepository repository;
 
+    @LogAudit
     public Customer signUpCustomer(Customer customerCreationResource) {
         if (customerExistsWithEmail(customerCreationResource.getEmail())) {
             throw new NotAuthorizedException(USER_EXISTS_ERROR);
@@ -29,6 +31,7 @@ public class CustomerService {
         return repository.getByEmail(email) != null;
     }
 
+    @LogAudit
     public Customer getCustomer(String uuid) {
         return repository.getByUuid(uuid);
     }

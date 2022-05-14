@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATH" value="logs"/>
+<!--  WRITE LOGS TO FILE  -->
+    <appender name="SAVE_TO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/oopsiedaisy-logs.log</file>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.oopsiedaisy.config.logging.MaskingPatternLayout">
+                <maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>
+
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </layout>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${LOG_PATH}/archived/log_%d{dd-MM-yyyy}.log
+            </fileNamePattern>
+            <maxHistory>2</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!--  WRITE LOGS TO CONSOLE  -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="com.oopsiedaisy.config.logging.MaskingPatternLayout">
+            <maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>
+
+            <pattern>%d{HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+<!--        <appender-ref ref="SAVE_TO_FILE" />-->
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" additivity="false" level="debug">
+<!--        <appender-ref ref="SAVE_TO_FILE" />-->
+        <appender-ref ref="CONSOLE" />
+    </logger>
+</configuration>

@@ -4,6 +4,7 @@ import com.oopsiedaisy.auth.controller.resource.*;
 import com.oopsiedaisy.auth.domain.CreationStatus;
 import com.oopsiedaisy.auth.mapper.AuthenticationMapper;
 import com.oopsiedaisy.auth.service.AuthenticationService;
+import com.oopsiedaisy.config.annotations.LogAudit;
 import com.oopsiedaisy.customers.mapper.CustomerMapper;
 import com.oopsiedaisy.customers.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class AuthenticationController {
 
     private final CustomerMapper customerMapper;
 
+    @LogAudit
     @PostMapping
     public ResponseEntity<AuthenticationResultResource> authenticateUser(
             @RequestBody @Valid AuthenticationRequestResource authenticationRequestResource) {
@@ -40,6 +42,7 @@ public class AuthenticationController {
         return ok(result);
     }
 
+    @LogAudit
     @PostMapping("/sign-up")
     public ResponseEntity<CustomerCreationResponse> createCustomer(
             @RequestBody @Valid CustomerCreationRequestResource customerCreationResource) {

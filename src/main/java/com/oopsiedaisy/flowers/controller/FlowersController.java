@@ -1,5 +1,6 @@
 package com.oopsiedaisy.flowers.controller;
 
+import com.oopsiedaisy.config.annotations.LogAudit;
 import com.oopsiedaisy.flowers.controller.resource.FlowerResource;
 import com.oopsiedaisy.flowers.controller.util.FlowerFilter;
 import com.oopsiedaisy.flowers.mapper.FlowerMapper;
@@ -20,6 +21,7 @@ public class FlowersController {
 
     private final FlowerMapper mapper;
 
+    @LogAudit
     @GetMapping
     public List<FlowerResource> getAllFlowers(FlowerFilter filter) {
         return mapper.toResource(service.getAllFlowers(filter));
