@@ -20,4 +20,6 @@ public class FlowerResource {
 
     BigDecimal price;
 
+    byte[] image;
+
 }
