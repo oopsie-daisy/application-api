@@ -1,6 +1,7 @@
 package com.oopsiedaisy.flowers.controller;
 
 import com.oopsiedaisy.config.annotations.JwtValidated;
+import com.oopsiedaisy.flowers.controller.resource.FlowerCreationResource;
 import com.oopsiedaisy.flowers.controller.resource.FlowerResource;
 import com.oopsiedaisy.flowers.controller.util.FlowerFilter;
 import com.oopsiedaisy.flowers.mapper.FlowerMapper;
@@ -8,6 +9,7 @@ import com.oopsiedaisy.flowers.service.FlowerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +28,7 @@ public class FlowersController {
 
     @JwtValidated
     @PostMapping
-    public List<FlowerResource> addFlowers(@RequestBody List<FlowerResource> flowersToAdd) {
+    public List<FlowerResource> addFlowers(@RequestBody @Valid List<FlowerCreationResource> flowersToAdd) {
         return mapper.toResource(service.addFlowers(mapper.fromResourceToDomain(flowersToAdd)));
     }
 }
