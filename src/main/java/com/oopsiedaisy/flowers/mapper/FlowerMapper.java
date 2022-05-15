@@ -1,11 +1,14 @@
 package com.oopsiedaisy.flowers.mapper;
 
 import com.oopsiedaisy.config.MapStructConfig;
+import com.oopsiedaisy.flowers.controller.resource.FlowerCreationResource;
 import com.oopsiedaisy.flowers.controller.resource.FlowerResource;
 import com.oopsiedaisy.flowers.domain.Flower;
 import com.oopsiedaisy.flowers.repository.entity.FlowerEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Mapper(config = MapStructConfig.class)
@@ -19,9 +22,10 @@ public interface FlowerMapper {
 
     List<Flower> toDomain(List<FlowerEntity> flowers);
 
-    Flower fromResourceToDomain(FlowerResource flower);
+    @Mapping(target = "image", source = "image.bytes")
+    Flower fromResourceToDomain(FlowerCreationResource flower) throws IOException;
 
-    List<Flower> fromResourceToDomain(List<FlowerResource> flowers);
+    List<Flower> fromResourceToDomain(List<FlowerCreationResource> flowers);
 
     List<FlowerEntity> toEntity(List<Flower> flowers);
 
