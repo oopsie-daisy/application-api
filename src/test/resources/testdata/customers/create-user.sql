@@ -1,2 +1,2 @@
-INSERT INTO customer (`id`, `uuid`, `first_name`, `last_name`, `full_name`, `phone_number`, `email`, `password`)
+INSERT INTO public.administrator (`id`, `uuid`, `first_name`, `last_name`, `full_name`, `phone_number`, `email`, `password`)
 VALUES (1, 'f8c3de3d-1fea-4d7c-a8b0-29f63c4c3888', 'John', 'Doe', 'John M. Doe', '+37061234567', 'example@mail.com', '$2a$10$Xjn9mfLPo2NpFOkhqyaVkOm5bxNm1Dlnbuj3nzvxXLFl8hdYw0HD6');

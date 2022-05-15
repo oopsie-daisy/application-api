@@ -4,8 +4,8 @@ import com.oopsiedaisy.auth.controller.resource.*;
 import com.oopsiedaisy.auth.domain.CreationStatus;
 import com.oopsiedaisy.auth.mapper.AuthenticationMapper;
 import com.oopsiedaisy.auth.service.AuthenticationService;
-import com.oopsiedaisy.customers.mapper.CustomerMapper;
-import com.oopsiedaisy.customers.service.CustomerService;
+import com.oopsiedaisy.customers.mapper.AdministratorMapper;
+import com.oopsiedaisy.customers.service.AdministratorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +29,9 @@ public class AuthenticationController {
 
     private final AuthenticationMapper mapper;
 
-    private final CustomerService customerService;
+    private final AdministratorService administratorService;
 
-    private final CustomerMapper customerMapper;
+    private final AdministratorMapper administratorMapper;
 
     @PostMapping
     public ResponseEntity<AuthenticationResultResource> authenticateUser(
@@ -41,13 +41,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<CustomerCreationResponse> createCustomer(
-            @RequestBody @Valid CustomerCreationRequestResource customerCreationResource) {
-        CustomerResource createdCustomer = customerMapper.toResource(customerService.signUpCustomer(customerMapper.toDomain(customerCreationResource)));
+    public ResponseEntity<AdministratorCreationResponse> createCustomer(
+            @RequestBody @Valid AdministratorCreationRequestResource customerCreationResource) {
+        AdministratorResource createdCustomer = administratorMapper.toResource(administratorService.signUpAdministrator(administratorMapper.toDomain(customerCreationResource)));
         URI location = fromCurrentRequest()
                 .path("/customer/{id}")
                 .buildAndExpand(createdCustomer.getUuid())
                 .toUri();
-        return created(location).body(new CustomerCreationResponse(createdCustomer.getUuid(), null, CreationStatus.OK));
+        return created(location).body(new AdministratorCreationResponse(createdCustomer.getUuid(), null, CreationStatus.OK));
     }
 }

@@ -1,15 +1,11 @@
 package com.oopsiedaisy.auth;
 
-import com.oopsiedaisy.auth.controller.resource.AddressCreationResource;
-import com.oopsiedaisy.auth.controller.resource.CustomerCreationRequestResource;
+import com.oopsiedaisy.auth.controller.resource.AdministratorCreationRequestResource;
 import com.oopsiedaisy.common.IntegrationTest;
-import com.oopsiedaisy.customers.repository.CustomerJpaRepository;
-import com.oopsiedaisy.customers.repository.CustomerRepository;
+import com.oopsiedaisy.customers.repository.AdministratorRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -18,12 +14,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class CustomerCreationIntTest extends IntegrationTest {
+class AdministratorCreationIntTest extends IntegrationTest {
 
     private static final String SIGN_UP_URL = "/auth/sign-up";
 
     @Autowired
-    private CustomerRepository repository;
+    private AdministratorRepository repository;
 
     @Test
     void shouldNotCreateCustomerWhenPayloadIsBad() throws Exception {
@@ -57,37 +53,25 @@ class CustomerCreationIntTest extends IntegrationTest {
         assertThat(repository.getByEmail("example@mail.com").getFullName()).isEqualTo("John M. Doe");
     }
 
-    private CustomerCreationRequestResource buildBadCustomerCreationResource() {
-        return CustomerCreationRequestResource.builder()
+    private AdministratorCreationRequestResource buildBadCustomerCreationResource() {
+        return AdministratorCreationRequestResource.builder()
                 .firstName(null)
                 .lastName("Doe")
                 .fullName("John M. Doe")
                 .phoneNumber("+370 6123 4567")
                 .email("example@mail.com")
                 .password("password")
-                .addresses(List.of())
                 .build();
     }
 
-    private CustomerCreationRequestResource buildCustomerCreationResource() {
-        return CustomerCreationRequestResource.builder()
+    private AdministratorCreationRequestResource buildCustomerCreationResource() {
+        return AdministratorCreationRequestResource.builder()
                 .firstName("John")
                 .lastName("Doe")
                 .fullName("John M. Doe")
                 .phoneNumber("+370 6123 4567")
                 .email("example@mail.com")
                 .password("password")
-                .addresses(List.of(buildAddress()))
-                .build();
-    }
-
-    private AddressCreationResource buildAddress() {
-        return AddressCreationResource.builder()
-                .city("City")
-                .country("Country")
-                .houseNumber("1")
-                .streetName("Groove street")
-                .zipCode("12346")
                 .build();
     }
 }

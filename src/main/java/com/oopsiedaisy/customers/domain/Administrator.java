@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class Customer {
+public class Administrator {
 
     UUID uuid;
 
@@ -19,8 +19,6 @@ public class Customer {
     String lastName;
 
     String fullName;
-
-    List<Address> addresses;
 
     String phoneNumber;
 
