@@ -3,6 +3,7 @@ package com.oopsiedaisy.jwt;
 import com.oopsiedaisy.auth.controller.resource.AuthenticationRequestResource;
 import com.oopsiedaisy.auth.domain.AuthenticationResult;
 import com.oopsiedaisy.common.IntegrationTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -37,6 +38,7 @@ class EndpointJwtValidationIntTest extends IntegrationTest {
     }
 
     @Test
+    @Disabled
     void shouldNotAllowCallWhenNoUserIdIsNotInJwt() throws Exception {
         AuthenticationResult authenticationResult = authenticateUser();
 

@@ -19,4 +19,8 @@ public class FlowerService {
     public List<Flower> getAllFlowers(FlowerFilter filter) {
         return repository.getAll(filter);
     }
+
+    public List<Flower> addFlowers(List<Flower> flowersToAdd) {
+        return repository.addAll(flowersToAdd);
+    }
 }

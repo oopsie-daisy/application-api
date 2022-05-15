@@ -31,9 +31,8 @@ public class JwtService {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public Boolean validateToken(String token, UUID userUuid) {
-        final String uuidFromJwt = getUserUuidFromJwt(token);
-        return (userUuid.equals(fromString(uuidFromJwt)) && !isTokenExpired(token)) && Jwts.parser().isSigned(token);
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token) && Jwts.parser().isSigned(token);
     }
 
     public Date getExpirationDateFromToken(String token) {

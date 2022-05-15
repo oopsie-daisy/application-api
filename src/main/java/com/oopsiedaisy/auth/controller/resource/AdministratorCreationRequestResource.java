@@ -7,22 +7,24 @@ import javax.validation.constraints.NotBlank;
 
 @Value
 @Builder
-public class AddressResource {
+public class AdministratorCreationRequestResource {
 
     @NotBlank
-    String country;
+    String firstName;
 
     @NotBlank
-    String city;
+    String lastName;
 
     @NotBlank
-    String streetName;
+    String fullName;
 
     @NotBlank
-    String houseNumber;
-
-    String apartmentNumber;
+    String phoneNumber;
 
     @NotBlank
-    String zipCode;
+    String email;
+
+    @NotBlank
+    String password;
+
 }

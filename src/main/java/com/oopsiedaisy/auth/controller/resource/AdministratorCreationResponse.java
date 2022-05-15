@@ -6,9 +6,9 @@ import lombok.Value;
 import java.util.UUID;
 
 @Value
-public class CustomerCreationResponse {
+public class AdministratorCreationResponse {
 
-    UUID customerUuid;
+    UUID administratorUuid;
 
     String errorMessage;
 

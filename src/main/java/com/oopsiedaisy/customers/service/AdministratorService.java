@@ -1,34 +1,34 @@
 package com.oopsiedaisy.customers.service;
 
 import com.oopsiedaisy.config.exceptions.NotAuthorizedException;
-import com.oopsiedaisy.customers.domain.Customer;
-import com.oopsiedaisy.customers.repository.CustomerRepository;
+import com.oopsiedaisy.customers.domain.Administrator;
+import com.oopsiedaisy.customers.repository.AdministratorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerService {
+public class AdministratorService {
 
     private static final String USER_EXISTS_ERROR = "User with that email already exists";
 
-    private final CustomerRepository repository;
+    private final AdministratorRepository repository;
 
-    public Customer signUpCustomer(Customer customerCreationResource) {
-        if (customerExistsWithEmail(customerCreationResource.getEmail())) {
+    public Administrator signUpAdministrator(Administrator administratorCreationResource) {
+        if (customerExistsWithEmail(administratorCreationResource.getEmail())) {
             throw new NotAuthorizedException(USER_EXISTS_ERROR);
         }
-        String hashedPassword = hashPassword(customerCreationResource.getPassword());
-        customerCreationResource.setPassword(hashedPassword);
-        return repository.persist(customerCreationResource);
+        String hashedPassword = hashPassword(administratorCreationResource.getPassword());
+        administratorCreationResource.setPassword(hashedPassword);
+        return repository.persist(administratorCreationResource);
     }
 
     private boolean customerExistsWithEmail(String email) {
         return repository.getByEmail(email) != null;
     }
 
-    public Customer getCustomer(String uuid) {
+    public Administrator getCustomer(String uuid) {
         return repository.getByUuid(uuid);
     }
 
