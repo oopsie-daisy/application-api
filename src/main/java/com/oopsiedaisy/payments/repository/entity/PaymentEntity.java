@@ -1,5 +1,6 @@
-package com.oopsiedaisy.payments.entity;
+package com.oopsiedaisy.payments.repository.entity;
 
+import com.oopsiedaisy.payments.controller.resource.PaymentStatus;
 import com.oopsiedaisy.payments.domain.PaymentProvider;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,9 +9,12 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
+import static java.time.Instant.now;
 import static java.util.UUID.randomUUID;
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.AUTO;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -33,6 +37,7 @@ public class PaymentEntity {
     UUID uuid;
 
     @Column(nullable = false)
+    @Enumerated(STRING)
     PaymentProvider paymentProvider;
 
     @Column(nullable = false)
@@ -42,15 +47,23 @@ public class PaymentEntity {
     @Column(nullable = false)
     String senderIban;
 
+    @Column(nullable = false)
+    Instant createdAt;
+
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    PaymentStatus status;
+
     @Version
     @Column(name = "OPT_LOCK_VERSION", columnDefinition = "integer default 0")
     Integer version;
 
     @PrePersist
-    private void setUuid() {
+    private void setUuidAndCreatedAt() {
         if (this.uuid == null) {
             uuid = randomUUID();
         }
+        this.createdAt = now();
     }
 
 }

@@ -13,7 +13,13 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = {NotAuthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse notAuthorised(Exception ex) {
-
         return new ErrorResponse(ex.getMessage(), 401, new Date());
     }
+
+    @ExceptionHandler(value = {FailedPaymentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse badRequest(Exception ex) {
+        return new ErrorResponse(ex.getMessage(), 400, new Date());
+    }
+
 }
