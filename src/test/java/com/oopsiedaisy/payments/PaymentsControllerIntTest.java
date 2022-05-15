@@ -72,7 +72,7 @@ class PaymentsControllerIntTest extends IntegrationTest {
                         .content(toJson(buildPaymentBody(EXISTING_ITEM_UUID))))
                 .andExpect(status().isOk());
 
-        assertThat(flowerRepository.getByUuids(List.of(fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"))).size()).isEqualTo(0);
+        assertThat(flowerRepository.getByUuids(List.of(fromString(EXISTING_ITEM_UUID))).size()).isEqualTo(0);
     }
 
     @Test
