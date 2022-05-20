@@ -1,22 +1,19 @@
 package com.oopsiedaisy.payments.domain;
 
-import com.oopsiedaisy.payments.controller.resource.PaymentStatus;
 import lombok.Value;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Value
-public class Payment {
+public class ItemsToBuy {
 
-    UUID uuid;
+    List<UUID> items;
 
     PaymentProvider paymentProvider;
 
-    BigDecimal amountToPay;
-
     String senderIban;
 
-    PaymentStatus status;
-
+    BigDecimal amountToPay;
 }

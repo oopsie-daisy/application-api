@@ -11,5 +11,5 @@ public class ErrorResponse {
 
     int status;
 
-    Date createdAt;
+    Date timestamp;
 }

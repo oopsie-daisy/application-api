@@ -37,18 +37,6 @@ class EndpointJwtValidationIntTest extends IntegrationTest {
                 .andExpect(jsonPath("$.message", is("User is not authorised to access this resource: Jwt is not provided")));
     }
 
-    @Test
-    @Disabled
-    void shouldNotAllowCallWhenNoUserIdIsNotInJwt() throws Exception {
-        AuthenticationResult authenticationResult = authenticateUser();
-
-        mockMvc.perform(get("/test/f8c3de3d-1fea-4d7c-a8b0-29f63c4c3887")
-                        .accept(APPLICATION_JSON)
-                .header("x-application-context", authenticationResult.getJwt()))
-                .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.message", is("User is not authorised to access this resource: Jwt is not valid")));
-    }
-
     private AuthenticationResult authenticateUser() throws Exception {
         String response = mockMvc.perform(post("/auth")
                         .accept(APPLICATION_JSON)
