@@ -27,7 +27,6 @@ class MailIntTest extends IntegrationTest {
     private static final String SENDER_IBAN = "LT123456789";
     private static final String EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454";
 
-
     @RegisterExtension
     static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
             .withConfiguration(GreenMailConfiguration.aConfig().withUser("duke", "springboot"))
@@ -42,7 +41,7 @@ class MailIntTest extends IntegrationTest {
                 .andExpect(status().isOk());
 
         // await for mail to be sent
-        Thread.sleep(5 * 1000);
+        Thread.sleep(7 * 1000);
         MimeMessage receivedMessage = greenMail.getReceivedMessages()[0];
         assertThat(receivedMessage).isNotNull();
 
