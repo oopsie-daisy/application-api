@@ -13,8 +13,8 @@ public class PaymentRepository {
 
     private final PaymentJpaRepository repository;
 
-    public void save(Payment payment) {
-        repository.save(mapper.toEntity(payment));
+    public Payment save(Payment payment) {
+        return mapper.toDomain(repository.save(mapper.toEntity(payment)));
     }
 
     public Payment findBySenderIban(String iban) {

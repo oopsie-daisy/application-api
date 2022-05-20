@@ -26,11 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PaymentsControllerIntTest extends IntegrationTest {
 
     private static final String PAYMENTS_COMPLETE_URL = "/payments/complete";
-
     private static final String SENDER_IBAN = "LT123456789";
-
     private static final String NON_EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3466";
-
     private static final String EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454";
 
     @Autowired
@@ -87,6 +84,14 @@ class PaymentsControllerIntTest extends IntegrationTest {
     }
 
     private ItemsToBuyResource buildPaymentBody(String uuid) {
-        return new ItemsToBuyResource(List.of(fromString(uuid)), SWEDBANK, SENDER_IBAN, new BigDecimal("20.99"));
+        return ItemsToBuyResource.builder()
+                .customerAddress("Test")
+                .customerEmail("test@mail.com")
+                .customerName("Test")
+                .items(List.of(fromString(uuid)))
+                .paymentProvider(SWEDBANK)
+                .senderIban(SENDER_IBAN)
+                .amountToPay(new BigDecimal("20.99"))
+                .build();
     }
 }

@@ -22,4 +22,10 @@ public class RestExceptionHandler {
         return new ErrorResponse(ex.getMessage(), 400, new Date());
     }
 
+    @ExceptionHandler(value = {FailedToSendEmailException.class})
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public ErrorResponse badGateway(Exception ex) {
+        return new ErrorResponse(ex.getMessage(), 502, new Date());
+    }
+
 }

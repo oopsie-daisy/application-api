@@ -6,9 +6,11 @@ import com.oopsiedaisy.flowers.repository.FlowerRepository;
 import com.oopsiedaisy.payments.controller.resource.PaymentStatus;
 import com.oopsiedaisy.payments.domain.ItemsToBuy;
 import com.oopsiedaisy.payments.domain.Payment;
+import com.oopsiedaisy.payments.event.domain.PaymentPerformedEvent;
 import com.oopsiedaisy.payments.domain.PaymentProvider;
 import com.oopsiedaisy.payments.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,31 +32,46 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
 
+    private final ApplicationEventPublisher eventPublisher;
+
     public PaymentStatus completePayment(ItemsToBuy itemsToBuy) {
-        checkIfItemsExist(itemsToBuy);
-        doPaymentInternal(itemsToBuy);
+        List<Flower> flowersToBeSold = checkIfItemsExist(itemsToBuy);
+        Payment performedPayment = doPaymentInternal(itemsToBuy);
+        eventPublisher.publishEvent(new PaymentPerformedEvent(performedPayment, flowersToBeSold));
         return COMPLETED;
     }
 
-    private void doPaymentInternal(ItemsToBuy itemsToBuy) {
+    private Payment doPaymentInternal(ItemsToBuy itemsToBuy) {
         try {
             PaymentStatus status = repository.removeAll(itemsToBuy.getItems());
-            savePaymentInfo(itemsToBuy.getPaymentProvider(), itemsToBuy.getAmountToPay(), itemsToBuy.getSenderIban(), status);
+            return savePaymentInfo(itemsToBuy, status);
         } catch (FailedPaymentException e) {
-            savePaymentInfo(itemsToBuy.getPaymentProvider(), itemsToBuy.getAmountToPay(), itemsToBuy.getSenderIban(), FAILED);
+            savePaymentInfo(itemsToBuy, FAILED);
             throw e;
         }
     }
 
-    private void checkIfItemsExist(ItemsToBuy itemsToBuy) {
+    private List<Flower> checkIfItemsExist(ItemsToBuy itemsToBuy) {
         List<Flower> flowersToBeSold = repository.getByUuids(itemsToBuy.getItems());
         if (flowersToBeSold.size() != itemsToBuy.getItems().size()) {
-            savePaymentInfo(itemsToBuy.getPaymentProvider(), itemsToBuy.getAmountToPay(), itemsToBuy.getSenderIban(), FAILED);
+            savePaymentInfo(itemsToBuy, FAILED);
             throw new FailedPaymentException(NO_ITEMS_AVAILABLE);
         }
+        return flowersToBeSold;
     }
 
-    private void savePaymentInfo(PaymentProvider paymentProvider, BigDecimal amountToPay, String senderIban, PaymentStatus status) {
-        paymentRepository.save(new Payment(randomUUID(), paymentProvider, amountToPay, senderIban, status));
+    private Payment savePaymentInfo(ItemsToBuy payment, PaymentStatus status) {
+        Payment paymentToSave = Payment.builder()
+                .uuid(randomUUID())
+                .customerAddress(payment.getCustomerAddress())
+                .customerEmail(payment.getCustomerEmail())
+                .customerName(payment.getCustomerName())
+                .amountToPay(payment.getAmountToPay())
+                .paymentProvider(payment.getPaymentProvider())
+                .senderIban(payment.getSenderIban())
+                .items(payment.getItems())
+                .status(status)
+                .build();
+        return paymentRepository.save(paymentToSave);
     }
 }
