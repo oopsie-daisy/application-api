@@ -14,7 +14,8 @@ public class LogAudit {
 
     @Around("execution(* *(..)) && " +
             "(within(com.oopsiedaisy..service..*) || " +
-            "within(com.oopsiedaisy..controller..*))")
+            "within(com.oopsiedaisy..controller..*) || " +
+            "within(com.oopsiedaisy..event..*))")
     public Object beforeServiceCall(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         log.info("Called method: {}.{}()", methodSignature.getMethod().getDeclaringClass().getSimpleName(),

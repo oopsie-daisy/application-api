@@ -9,6 +9,12 @@ import java.util.UUID;
 @Value
 public class ItemsToBuy {
 
+    String customerName;
+
+    String customerEmail;
+
+    String customerAddress;
+
     List<UUID> items;
 
     PaymentProvider paymentProvider;

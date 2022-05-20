@@ -54,6 +54,15 @@ public class PaymentEntity {
     @Enumerated(STRING)
     PaymentStatus status;
 
+    @Column(nullable = false)
+    String customerName;
+
+    @Column(nullable = false)
+    String customerEmail;
+
+    @Column(nullable = false)
+    String customerAddress;
+
     @Version
     @Column(name = "OPT_LOCK_VERSION", columnDefinition = "integer default 0")
     Integer version;
