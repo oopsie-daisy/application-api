@@ -5,5 +5,7 @@ public enum FlowerColorEnum {
     YELLOW,
     PINK,
     ORANGE,
-    WHITE
+    WHITE,
+    BLUE,
+    BLACK,
 }
