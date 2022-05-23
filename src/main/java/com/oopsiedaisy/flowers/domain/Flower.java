@@ -2,10 +2,11 @@ package com.oopsiedaisy.flowers.domain;
 
 import lombok.Builder;
 import lombok.Value;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+
+import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
 
 @Value
 @Builder
@@ -17,7 +18,7 @@ public class Flower {
 
     boolean bouquet;
 
-    String baseColor;
+    FlowerColorEnum baseColor;
 
     BigDecimal price;
 

@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
+
 @Value
 public class FlowerCreationResource {
 
@@ -16,7 +18,7 @@ public class FlowerCreationResource {
     Boolean bouquet;
 
     @NotNull
-    String baseColor;
+    FlowerColorEnum baseColor;
 
     @NotNull
     BigDecimal price;

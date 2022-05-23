@@ -4,6 +4,8 @@ import lombok.Value;
 
 import java.math.BigDecimal;
 
+import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
+
 @Value
 public class FlowerFilter {
 
@@ -11,7 +13,7 @@ public class FlowerFilter {
 
     Boolean bouquet;
 
-    String color;
+    FlowerColorEnum color;
 
     BigDecimal priceFrom;
 
