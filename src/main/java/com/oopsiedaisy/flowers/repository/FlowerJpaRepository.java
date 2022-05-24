@@ -13,4 +13,6 @@ public interface FlowerJpaRepository extends JpaRepository<FlowerEntity, Integer
     void deleteAllByUuidIn(List<UUID> items);
 
     List<FlowerEntity> findAllByUuidIn(List<UUID> uuids);
+
+    FlowerEntity findByUuid(UUID uuid);
 }
