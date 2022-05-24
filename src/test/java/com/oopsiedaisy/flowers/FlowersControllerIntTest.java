@@ -81,7 +81,7 @@ class FlowersControllerIntTest extends IntegrationTest {
     @Test
     @Sql({"/testdata/flowers/add-flowers.sql"})
     void shouldReturnFlowersByColor() throws Exception {
-        testGetFlowersByFilter(ALL_FLOWERS_URL + "?color=red", expectedFlowersByColor, status().isOk());
+        testGetFlowersByFilter(ALL_FLOWERS_URL + "?color=RED", expectedFlowersByColor, status().isOk());
     }
 
     @Test

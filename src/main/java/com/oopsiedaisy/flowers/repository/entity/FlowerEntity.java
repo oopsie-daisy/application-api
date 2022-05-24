@@ -13,6 +13,8 @@ import static java.util.UUID.randomUUID;
 import static javax.persistence.GenerationType.AUTO;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
+
 @Getter
 @Entity
 @Builder
@@ -37,8 +39,9 @@ public class FlowerEntity {
     @Column(nullable = false)
     boolean bouquet;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    String baseColor;
+    FlowerColorEnum baseColor;
 
     @PositiveOrZero
     @Column(nullable = false)

@@ -3,21 +3,21 @@
     "uuid": "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454",
     "title": "Bunch of Roses",
     "bouquet": true,
-    "baseColor": "red",
+    "baseColor": "RED",
     "price": 12.98
   },
   {
     "uuid": "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3455",
     "title": "Tulips",
     "bouquet": true,
-    "baseColor": "yellow",
+    "baseColor": "YELLOW",
     "price": 99.95
   },
   {
     "uuid": "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3456",
     "title": "Gvazdik",
     "bouquet": false,
-    "baseColor": "blue",
+    "baseColor": "BLUE",
     "price": 0.01
   }
 ]

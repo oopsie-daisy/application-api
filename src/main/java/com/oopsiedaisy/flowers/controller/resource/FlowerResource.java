@@ -6,6 +6,8 @@ import lombok.Value;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
+
 @Value
 @Builder
 public class FlowerResource {
@@ -16,7 +18,7 @@ public class FlowerResource {
 
     boolean bouquet;
 
-    String baseColor;
+    FlowerColorEnum baseColor;
 
     BigDecimal price;
 

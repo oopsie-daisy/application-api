@@ -2,31 +2,31 @@
   {
     "title": "Flower 1",
     "bouquet": true,
-    "baseColor": "red",
+    "baseColor": "RED",
     "price": 12.98
   },
   {
     "title": "Flower 2",
     "bouquet": false,
-    "baseColor": "blue",
+    "baseColor": "BLUE",
     "price": 598.99
   },
   {
     "title": "Flower 3",
     "bouquet": true,
-    "baseColor": "yellow",
+    "baseColor": "YELLOW",
     "price": 0.99
   },
   {
     "title": "Flower 4",
     "bouquet": true,
-    "baseColor": "black",
+    "baseColor": "BLACK",
     "price": 19.95
   },
   {
     "title": "Flower 5",
     "bouquet": true,
-    "baseColor": "blue",
+    "baseColor": "BLUE",
     "price": 12.95
   }
 ]

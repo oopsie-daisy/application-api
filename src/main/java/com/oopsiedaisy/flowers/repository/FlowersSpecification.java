@@ -31,8 +31,8 @@ public class FlowersSpecification {
         if (filter.getBouquet() != null) {
             predicates.add(criteriaBuilder.equal(root.get("bouquet"), filter.getBouquet()));
         }
-        if (isNotBlank(filter.getColor())) {
-            predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("baseColor")), filter.getColor().toLowerCase()));
+        if (filter.getColor() != null) {
+            predicates.add(criteriaBuilder.equal(root.get("baseColor"), filter.getColor()));
         }
         if (filter.getPriceFrom() != null) {
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), filter.getPriceFrom()));
