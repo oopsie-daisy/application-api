@@ -33,7 +33,7 @@ public class FlowersController {
         return mapper.toResource(service.addFlowers(mapper.fromResourceToDomain(flowersToAdd)));
     }
 
-    @GetMapping("{uuid}")
+    @GetMapping("/{uuid}")
     public FlowerResource getFlowerByUuid(@PathVariable("uuid") UUID uuid) {
         return mapper.toResource(service.getFlowerByUuid(uuid));
     }
