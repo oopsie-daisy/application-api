@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +31,10 @@ public class FlowersController {
     @PostMapping
     public List<FlowerResource> addFlowers(@RequestBody @Valid List<FlowerCreationResource> flowersToAdd) {
         return mapper.toResource(service.addFlowers(mapper.fromResourceToDomain(flowersToAdd)));
+    }
+
+    @GetMapping("/{uuid}")
+    public FlowerResource getFlowerByUuid(@PathVariable("uuid") UUID uuid) {
+        return mapper.toResource(service.getFlowerByUuid(uuid));
     }
 }

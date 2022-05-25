@@ -58,4 +58,8 @@ public class FlowerRepository {
             throw new FailedPaymentException(FAILED_PAYMENT + e.getMessage());
         }
     }
+
+    public Flower getByUuid(UUID uuid) {
+        return mapper.toDomain(repository.findByUuid(uuid));
+    }
 }
