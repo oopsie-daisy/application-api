@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Mapper(config = MapStructConfig.class)
 public interface FlowerMapper {
@@ -21,6 +22,8 @@ public interface FlowerMapper {
     Flower toDomain(FlowerEntity flower);
 
     List<Flower> toDomain(List<FlowerEntity> flowers);
+
+    Set<Flower> toDomain(Set<FlowerEntity> flowers);
 
     @Mapping(target = "image", source = "image.bytes")
     Flower fromResourceToDomain(FlowerCreationResource flower) throws IOException;

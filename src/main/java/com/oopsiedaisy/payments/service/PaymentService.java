@@ -14,8 +14,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.oopsiedaisy.payments.controller.resource.PaymentStatus.COMPLETED;
 import static com.oopsiedaisy.payments.controller.resource.PaymentStatus.FAILED;
@@ -36,14 +36,14 @@ public class PaymentService {
 
     public PaymentStatus completePayment(ItemsToBuy itemsToBuy) {
         List<Flower> flowersToBeSold = checkIfItemsExist(itemsToBuy);
-        Payment performedPayment = doPaymentInternal(itemsToBuy);
+        Payment performedPayment = doPaymentInternal(flowersToBeSold, itemsToBuy);
         eventPublisher.publishEvent(new PaymentPerformedEvent(performedPayment, flowersToBeSold));
         return COMPLETED;
     }
 
-    private Payment doPaymentInternal(ItemsToBuy itemsToBuy) {
+    private Payment doPaymentInternal(List<Flower> flowers, ItemsToBuy itemsToBuy) {
         try {
-            PaymentStatus status = repository.removeAll(itemsToBuy.getItems());
+            PaymentStatus status = repository.removeAllByIds(flowers.stream().map(Flower::getId).collect(Collectors.toList()));
             return savePaymentInfo(itemsToBuy, status);
         } catch (FailedPaymentException e) {
             savePaymentInfo(itemsToBuy, FAILED);
@@ -52,12 +52,12 @@ public class PaymentService {
     }
 
     private List<Flower> checkIfItemsExist(ItemsToBuy itemsToBuy) {
-        List<Flower> flowersToBeSold = repository.getByUuids(itemsToBuy.getItems());
-        if (flowersToBeSold.size() != itemsToBuy.getItems().size()) {
+        List<Flower> flowersToBeSold = repository.getAllByUuid(itemsToBuy.getItem());
+        if (flowersToBeSold.size() < itemsToBuy.getQuantity()) {
             savePaymentInfo(itemsToBuy, FAILED);
             throw new FailedPaymentException(NO_ITEMS_AVAILABLE);
         }
-        return flowersToBeSold;
+        return flowersToBeSold.stream().limit(itemsToBuy.getQuantity()).collect(Collectors.toList());
     }
 
     private Payment savePaymentInfo(ItemsToBuy payment, PaymentStatus status) {
@@ -68,8 +68,10 @@ public class PaymentService {
                 .customerName(payment.getCustomerName())
                 .amountToPay(payment.getAmountToPay())
                 .paymentProvider(payment.getPaymentProvider())
+                .deliveryOption(payment.getDeliveryOption())
                 .senderIban(payment.getSenderIban())
-                .items(payment.getItems())
+                .item(payment.getItem())
+                .quantity(payment.getQuantity())
                 .status(status)
                 .build();
         return paymentRepository.save(paymentToSave);

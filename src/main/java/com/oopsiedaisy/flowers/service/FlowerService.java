@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -17,7 +18,7 @@ public class FlowerService {
 
     private final FlowerRepository repository;
 
-    public List<Flower> getAllFlowers(FlowerFilter filter) {
+    public Set<Flower> getAllFlowers(FlowerFilter filter) {
         return repository.getAll(filter);
     }
 
@@ -27,5 +28,9 @@ public class FlowerService {
 
     public Flower getFlowerByUuid(UUID uuid) {
         return repository.getByUuid(uuid);
+    }
+
+    public int getAvailableQuantity(UUID uuid) {
+        return repository.getCountByUuid(uuid);
     }
 }

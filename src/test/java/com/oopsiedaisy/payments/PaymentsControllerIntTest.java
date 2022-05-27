@@ -4,6 +4,8 @@ import com.oopsiedaisy.common.IntegrationTest;
 import com.oopsiedaisy.flowers.repository.FlowerRepository;
 import com.oopsiedaisy.payments.controller.resource.ItemsToBuyResource;
 import com.oopsiedaisy.payments.repository.PaymentRepository;
+import com.oopsiedaisy.payments.repository.enums.DeliveryOptionEnum;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -28,7 +30,7 @@ class PaymentsControllerIntTest extends IntegrationTest {
     private static final String PAYMENTS_COMPLETE_URL = "/payments/complete";
     private static final String SENDER_IBAN = "LT123456789";
     private static final String NON_EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3466";
-    private static final String EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454";
+    private static final String EXISTING_ITEM_UUID = "f8c3de3d-1fea-4d7c-a8b0-29f63c4c3455";
 
     @Autowired
     private PaymentRepository paymentRepository;
@@ -58,7 +60,7 @@ class PaymentsControllerIntTest extends IntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("Item(s) you are trying to buy do not exist")));
 
-        assertThat(flowerRepository.getAll().size()).isEqualTo(3);
+        assertThat(flowerRepository.getAll().size()).isEqualTo(4);
     }
 
     @Test
@@ -88,8 +90,10 @@ class PaymentsControllerIntTest extends IntegrationTest {
                 .customerAddress("Test")
                 .customerEmail("test@mail.com")
                 .customerName("Test")
-                .items(List.of(fromString(uuid)))
+                .item(fromString(uuid))
+                .quantity(1)
                 .paymentProvider(SWEDBANK)
+                .deliveryOption(DeliveryOptionEnum.COURIER)
                 .senderIban(SENDER_IBAN)
                 .amountToPay(new BigDecimal("20.99"))
                 .build();

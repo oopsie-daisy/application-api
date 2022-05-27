@@ -3,8 +3,9 @@ package com.oopsiedaisy.payments.domain;
 import lombok.Value;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
+
+import com.oopsiedaisy.payments.repository.enums.DeliveryOptionEnum;
 
 @Value
 public class ItemsToBuy {
@@ -15,9 +16,13 @@ public class ItemsToBuy {
 
     String customerAddress;
 
-    List<UUID> items;
+    UUID item;
+
+    Integer quantity;
 
     PaymentProvider paymentProvider;
+
+    DeliveryOptionEnum deliveryOption;
 
     String senderIban;
 

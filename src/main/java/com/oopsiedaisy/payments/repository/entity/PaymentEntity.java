@@ -2,6 +2,8 @@ package com.oopsiedaisy.payments.repository.entity;
 
 import com.oopsiedaisy.payments.controller.resource.PaymentStatus;
 import com.oopsiedaisy.payments.domain.PaymentProvider;
+import com.oopsiedaisy.payments.repository.enums.DeliveryOptionEnum;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Type;
@@ -39,6 +41,10 @@ public class PaymentEntity {
     @Column(nullable = false)
     @Enumerated(STRING)
     PaymentProvider paymentProvider;
+
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    DeliveryOptionEnum deliveryOption;
 
     @Column(nullable = false)
     @PositiveOrZero
