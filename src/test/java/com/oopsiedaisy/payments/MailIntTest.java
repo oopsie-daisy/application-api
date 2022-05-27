@@ -5,6 +5,8 @@ import com.icegreen.greenmail.junit5.GreenMailExtension;
 import com.icegreen.greenmail.util.ServerSetupTest;
 import com.oopsiedaisy.common.IntegrationTest;
 import com.oopsiedaisy.payments.controller.resource.ItemsToBuyResource;
+import com.oopsiedaisy.payments.repository.enums.DeliveryOptionEnum;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.test.context.jdbc.Sql;
@@ -52,8 +54,10 @@ class MailIntTest extends IntegrationTest {
                 .customerAddress("Test")
                 .customerEmail("test@mail.com")
                 .customerName("Test")
-                .items(List.of(fromString(uuid)))
+                .item(fromString(uuid))
+                .quantity(1)
                 .paymentProvider(SWEDBANK)
+                .deliveryOption(DeliveryOptionEnum.COURIER)
                 .senderIban(SENDER_IBAN)
                 .amountToPay(new BigDecimal("20.99"))
                 .build();

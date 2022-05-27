@@ -24,7 +24,7 @@ public class FlowersController {
 
     @GetMapping
     public List<FlowerResource> getAllFlowers(FlowerFilter filter) {
-        return mapper.toResource(service.getAllFlowers(filter));
+        return mapper.toResource(service.getAllFlowers(filter).stream().toList());
     }
 
     @JwtValidated
@@ -36,5 +36,10 @@ public class FlowersController {
     @GetMapping("/{uuid}")
     public FlowerResource getFlowerByUuid(@PathVariable("uuid") UUID uuid) {
         return mapper.toResource(service.getFlowerByUuid(uuid));
+    }
+
+    @GetMapping("/{uuid}/quantity")
+    public int getAvailableQuantity(@PathVariable("uuid") UUID uuid) {
+        return service.getAvailableQuantity(uuid);
     }
 }

@@ -1,11 +1,12 @@
 package com.oopsiedaisy.payments.domain;
 
 import com.oopsiedaisy.payments.controller.resource.PaymentStatus;
+import com.oopsiedaisy.payments.repository.enums.DeliveryOptionEnum;
+
 import lombok.Builder;
 import lombok.Value;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 @Value
@@ -22,12 +23,16 @@ public class Payment {
 
     PaymentProvider paymentProvider;
 
+    DeliveryOptionEnum deliveryOption;
+
     BigDecimal amountToPay;
 
     String senderIban;
 
     PaymentStatus status;
 
-    List<UUID> items;
+    UUID item;
+
+    Integer quantity;
 
 }

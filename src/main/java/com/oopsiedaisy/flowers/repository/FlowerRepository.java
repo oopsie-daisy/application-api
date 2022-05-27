@@ -12,7 +12,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.OptimisticLockException;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static com.oopsiedaisy.payments.controller.resource.PaymentStatus.COMPLETED;
@@ -39,11 +42,12 @@ public class FlowerRepository {
 
     }
 
-    public List<Flower> getAll(FlowerFilter filter) {
+    public Set<Flower> getAll(FlowerFilter filter) {
         Sort sort = by("price").descending();
 
         Specification<FlowerEntity> criteria = specification.searchByFilter(filter);
-        return mapper.toDomain(repository.findAll(criteria, sort));
+
+        return mapper.toDomain(new HashSet<>(repository.findAll(criteria, sort)));
     }
 
     public List<Flower> addAll(List<Flower> flowersToAdd) {
@@ -59,7 +63,24 @@ public class FlowerRepository {
         }
     }
 
+    public PaymentStatus removeAllByIds(List<Integer> ids) {
+        try {
+            repository.deleteAllByIdIn(ids);
+            return COMPLETED;
+        } catch (OptimisticLockException e) {
+            throw new FailedPaymentException(FAILED_PAYMENT + e.getMessage());
+        }
+    }
+
     public Flower getByUuid(UUID uuid) {
-        return mapper.toDomain(repository.findByUuid(uuid));
+        return mapper.toDomain(repository.findFirstByUuid(uuid));
+    }
+
+    public List<Flower> getAllByUuid(UUID uuid) {
+        return mapper.toDomain(repository.findAllByUuid(uuid));
+    }
+
+    public int getCountByUuid(UUID uuid) {
+        return repository.countAllByUuid(uuid);
     }
 }

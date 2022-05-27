@@ -12,6 +12,8 @@ import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
 @Builder
 public class Flower {
 
+    Integer id;
+
     UUID uuid;
 
     String title;

@@ -19,7 +19,7 @@ import com.oopsiedaisy.flowers.repository.enums.FlowerColorEnum;
 @Entity
 @Builder
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "uuid")
 @AllArgsConstructor
 @Table(name = "flower")
 @FieldDefaults(level = PRIVATE)
